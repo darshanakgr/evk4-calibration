@@ -1,0 +1,26 @@
+# Python 3.8 (64-bit). Install with:  uv pip install -r requirements.txt   (or pip install -r requirements.txt)
+#
+# NOT installable from PyPI: the Prophesee Metavision SDK (metavision_core, metavision_hal,
+# metavision_sdk_cv), used by the camera / recorder apps to talk to the EVK4s. Install it with the
+# Prophesee installer, then make it visible to the venv, e.g. a file
+#   .venv/Lib/site-packages/prophesee-sdk.pth
+# containing the line
+#   C:\Program Files\Prophesee\lib\python3\site-packages
+# Processing recorded .h5 files (06_stripe_depth processing, 05_experiments notebooks) does not need it.
+
+# --- core (all steps) ---
+numpy==1.24.4
+opencv-python==4.8.1.78
+h5py==3.10.0
+dearpygui==2.3.1
+
+# --- point clouds (06_stripe_depth/cloud_viewer.py, 05_experiments/view_cloud.py) ---
+open3d==0.19.0
+
+# --- experiments / notebooks (05_experiments) ---
+matplotlib==3.7.5
+scipy==1.10.1
+ipykernel==6.29.5
+
+# --- tests ---
+pytest==8.3.5

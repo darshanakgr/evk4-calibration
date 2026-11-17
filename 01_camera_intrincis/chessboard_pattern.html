@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<!-- Blinking chessboard for event-camera calibration. __COLS__ / __ROWS__ are replaced by calibrate_intrinsics.py -->
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Blinking chessboard __COLS__x__ROWS__</title>
+  <style>
+    html, body { margin: 0; height: 100%; overflow: hidden; background: rgb(127, 127, 127); }
+    canvas { position: absolute; left: 0; top: 0; }
+    #hud {
+      position: absolute; left: 8px; top: 8px; z-index: 1; font: 14px Arial, sans-serif;
+      background: rgba(255, 255, 255, 0.9); padding: 6px 10px; border-radius: 4px; max-width: 95vw;
+    }
+    #hud button { font: 14px Arial, sans-serif; margin-right: 6px; }
+    #hud small { color: #333; }
+  </style>
+</head>
+<body>
+  <canvas id="board"></canvas>
+  <div id="hud">
+    <button id="btn_pause">Pause</button><button id="btn_fs">Fullscreen</button>
+    <span id="info"></span><br />
+    <small>Space: pause/resume &middot; F: fullscreen &middot; H: hide/show this panel &middot;
+      + / -: blink slower / faster</small>
+  </div>
+  <script>
+    const ROWS = __ROWS__, COLS = __COLS__;       // Number of INNER corners
+    const SQ_ROWS = ROWS + 1, SQ_COLS = COLS + 1;  // Number of squares
+    const BG = 'rgb(127, 127, 127)';
+
+    const canvas = document.getElementById('board');
+    const ctx = canvas.getContext('2d');
+    const info = document.getElementById('info');
+    const hud = document.getElementById('hud');
+    const btnPause = document.getElementById('btn_pause');
+
+    let running = true, squaresVisible = true, framesPerToggle = 1, frameCounter = 0;
+    let refreshHz = 60, lastTs = null;
+
+    function geometry() {
+      const step = Math.floor(Math.min(canvas.height / (SQ_ROWS + 1), canvas.width / (SQ_COLS + 1)));
+      return { step, ox: Math.floor((canvas.width - SQ_COLS * step) / 2), oy: Math.floor((canvas.height - SQ_ROWS * step) / 2) };
+    }
+
+    function draw(withSquares) {
+      const g = geometry();
+      ctx.fillStyle = BG;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = 'white';
+      ctx.fillRect(g.ox, g.oy, SQ_COLS * g.step, SQ_ROWS * g.step);
+      if (!withSquares) return;
+      ctx.fillStyle = 'black';
+      for (let r = 0; r < SQ_ROWS; r++)
+        for (let c = 0; c < SQ_COLS; c++)
+          if ((r + c) % 2 === 0) ctx.fillRect(g.ox + c * g.step, g.oy + r * g.step, g.step, g.step);
+    }
+
+    function updateInfo() {
+      const blink = running ? `~${(refreshHz / (2 * framesPerToggle)).toFixed(1)} Hz` : 'paused';
+      info.textContent = `Inner corners: ${COLS} cols x ${ROWS} rows | square: ${geometry().step} px | blinking: ${blink}`;
+    }
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      draw(true);
+      updateInfo();
+    }
+
+    function loop(ts) {
+      if (lastTs !== null) {
+        const dt = ts - lastTs;
+        if (dt > 0 && dt < 200) refreshHz = 0.95 * refreshHz + 0.05 * (1000 / dt);
+      }
+      lastTs = ts;
+      if (running && ++frameCounter >= framesPerToggle) {
+        frameCounter = 0;
+        squaresVisible = !squaresVisible;
+        draw(squaresVisible);
+      }
+      requestAnimationFrame(loop);
+    }
+
+    function togglePause() {
+      running = !running;
+      btnPause.textContent = running ? 'Pause' : 'Start';
+      if (!running) draw(true);  // Show the static pattern when paused
+      updateInfo();
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    }
+
+    btnPause.onclick = togglePause;
+    document.getElementById('btn_fs').onclick = toggleFullscreen;
+    canvas.ondblclick = toggleFullscreen;
+    document.addEventListener('fullscreenchange', () => {
+      hud.style.display = document.fullscreenElement ? 'none' : 'block';
+      canvas.style.cursor = document.fullscreenElement ? 'none' : 'default';
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.code === 'Space') { togglePause(); e.preventDefault(); }
+      else if (e.key === 'f' || e.key === 'F') toggleFullscreen();
+      else if (e.key === 'h' || e.key === 'H') hud.style.display = hud.style.display === 'none' ? 'block' : 'none';
+      else if (e.key === '+' || e.key === '=') { framesPerToggle = Math.min(30, framesPerToggle + 1); updateInfo(); }
+      else if (e.key === '-' || e.key === '_') { framesPerToggle = Math.max(1, framesPerToggle - 1); updateInfo(); }
+    });
+    window.addEventListener('resize', resize);
+    setInterval(updateInfo, 1000);
+
+    resize();
+    requestAnimationFrame(loop);
+  </script>
+</body>
+</html>

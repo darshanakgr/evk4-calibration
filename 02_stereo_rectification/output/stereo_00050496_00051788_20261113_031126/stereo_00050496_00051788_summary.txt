@@ -1,0 +1,45 @@
+Left: 00050496   Right: 00051788
+Model: pinhole   image 1280x720   (intrinsics fixed)
+Pairs kept: 29/30
+Stereo RMS reprojection error: 0.6848 px
+
+Baseline |T| = 50.13 mm   (horizontal rig)
+T = [-50.06, -0.24, -2.50] mm
+R (Rodrigues) = [0.009, -0.220, -0.206] deg   (|angle| 0.301 deg)
+
+Rectification (alpha = 0.00):
+  f = 1689.62 px   cx1 = 590.53  cx2 = 590.53  cy = 373.39
+  Rectified vertical disparity error: mean 0.748 px, median 0.694, max 1.036
+WARNING: Large rectification error (0.75 px): check the intrinsics and capture more pairs covering the whole field of view at various distances.
+
+Per-pair errors (reprojection | rectified epipolar):
+  pair   1: 0.611 px | 0.714 px
+  pair   2: 0.779 px | 1.036 px
+  pair   3: 0.601 px | 0.687 px
+  pair   4: 0.669 px | 0.710 px
+  pair   5: 0.678 px | 0.693 px
+  pair   6: 0.749 px | 0.876 px
+  pair   7: 0.676 px | 0.646 px
+  pair   8: 0.607 px | 0.645 px
+  pair   9: 0.573 px | 0.572 px
+  pair  10: 0.593 px | 0.647 px
+  pair  11: 0.733 px | 0.794 px
+  pair  12: 0.626 px | 0.681 px
+  pair  13: 0.692 px | 0.639 px
+  pair  14: 0.809 px | 0.907 px
+  pair  15: 0.758 px | 0.865 px
+  pair  16: 0.635 px | 0.694 px
+  pair  17: 0.677 px | 0.817 px
+  pair  18: 0.734 px | 0.876 px
+  pair  19: 0.577 px | 0.687 px
+  pair  20: 0.706 px | 0.759 px
+  pair  21: 0.806 px | 0.969 px
+  pair  22: REJECTED (outlier) | 0.913 px
+  pair  23: 0.611 px | 0.673 px
+  pair  24: 0.673 px | 0.594 px
+  pair  25: 0.718 px | 0.837 px
+  pair  26: 0.697 px | 0.681 px
+  pair  27: 0.726 px | 0.879 px
+  pair  28: 0.633 px | 0.623 px
+  pair  29: 0.636 px | 0.678 px
+  pair  30: 0.780 px | 0.813 px

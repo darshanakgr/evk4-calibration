@@ -1,0 +1,25 @@
+Camera serial: 00050496
+Model: pinhole  (refined)
+Image size: 1280 x 720
+Views kept: 5/5
+RMS reprojection error: 0.3387 px
+
+fx = 1614.1282
+fy = 1614.1282
+cx = 658.5603
+cy = 349.7241
+
+Camera matrix K:
+  [   1614.1282,       0.0000,     658.5603]
+  [      0.0000,    1614.1282,     349.7241]
+  [      0.0000,       0.0000,       1.0000]
+
+Distortion coefficients:
+  k1=-0.465458, k2=0.395923, p1=0.002142, p2=0.004949, k3=-1.523743
+
+Per-view RMS error (px):
+  view   1: 0.3486
+  view   2: 0.3154
+  view   3: 0.2847
+  view   4: 0.3440
+  view   5: 0.3913

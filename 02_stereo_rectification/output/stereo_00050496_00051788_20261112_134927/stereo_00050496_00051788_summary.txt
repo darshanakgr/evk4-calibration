@@ -1,0 +1,20 @@
+Left: 00050496   Right: 00051788
+Model: pinhole   image 1280x720   (intrinsics fixed)
+Pairs kept: 5/5
+Stereo RMS reprojection error: 0.5437 px
+
+Baseline |T| = 27.01 mm   (horizontal rig)
+T = [-27.00, 0.07, 0.69] mm
+R (Rodrigues) = [-0.029, -0.633, -0.327] deg   (|angle| 0.713 deg)
+
+Rectification (alpha = 0.00):
+  f = 1672.74 px   cx1 = 743.88  cx2 = 743.88  cy = 370.95
+  Rectified vertical disparity error: mean 0.573 px, median 0.590, max 0.619
+WARNING: Large rectification error (0.57 px): check the intrinsics and capture more pairs covering the whole field of view at various distances.
+
+Per-pair errors (reprojection | rectified epipolar):
+  pair   1: 0.460 px | 0.509 px
+  pair   2: 0.524 px | 0.597 px
+  pair   3: 0.572 px | 0.619 px
+  pair   4: 0.536 px | 0.549 px
+  pair   5: 0.614 px | 0.590 px

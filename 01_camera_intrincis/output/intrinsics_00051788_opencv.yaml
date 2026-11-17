@@ -1,0 +1,20 @@
+%YAML:1.0
+---
+camera_model: pinhole
+image_width: 1280
+image_height: 720
+camera_matrix: !!opencv-matrix
+   rows: 3
+   cols: 3
+   dt: d
+   data: [ 1.6226691121387912e+03, 0., 6.7636331863594830e+02, 0.,
+       1.6226691121387912e+03, 3.8876558904861901e+02, 0., 0., 1. ]
+distortion_coefficients: !!opencv-matrix
+   rows: 1
+   cols: 5
+   dt: d
+   data: [ -4.7018011227088835e-01, 1.2365408023037371e-01,
+       1.3595188856802909e-03, 1.3477765776311174e-03,
+       4.6400880564489977e-01 ]
+overall_rms_reprojection_error: 3.7942274216401317e-01
+n_kept_views: 33
